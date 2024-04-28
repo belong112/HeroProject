@@ -3,6 +3,9 @@ import { useState, useEffect } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import styled from "styled-components";
 
+import { useSelectStore } from "@/store";
+import { patchHeroProfile } from "@/utils/request";
+
 const ProfileContainer = styled.div`
   display: flex;
   width: 700px;
@@ -68,6 +71,7 @@ export default function HeroProfile({ statData }: { statData: HeroStat }) {
   const [agi, setAgi] = useState(statData.agi);
   const [luk, setLuk] = useState(statData.luk);
   const [point, setPoint] = useState(0);
+  const { selectedId } = useSelectStore();
 
   function add(val: number, callbackFunc: any) {
     if (point > 0) {
@@ -88,7 +92,23 @@ export default function HeroProfile({ statData }: { statData: HeroStat }) {
   }
 
   function saveStats() {
-    toast.success("儲存成功!");
+    if (point > 0) {
+      toast.error("仍有點數尚未分配");
+      return;
+    }
+
+    const param = {
+      str: str,
+      int: int,
+      agi: agi,
+      luk: luk,
+    };
+
+    patchHeroProfile(selectedId, param)
+      .then((res) => {
+        toast.success("儲存成功");
+      })
+      .catch((error) => toast.error("發生錯誤"));
   }
 
   const staticData = [
