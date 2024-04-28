@@ -1,20 +1,44 @@
 "use client";
-import { useRouter } from "next/navigation";
+import { useState } from "react";
+
+import HeroList from "@/components/HeroList";
 
 export default function Hero() {
-  const router = useRouter();
-
-  const heroList = [1, 2, 3, 4];
-  const buttons = heroList.map((id) => (
-    <button onClick={() => router.push(`/heros/${id}`)} key={id}>
-      轉至 {id} 英雄的頁面
-    </button>
-  ));
-
+  const [selectedId, setSelectedId] = useState("");
+  const heroData = [
+    {
+      id: "1",
+      isSelect: false,
+      name: "Daredevil",
+      image:
+        "http://i.annihil.us/u/prod/marvel/i/mg/6/90/537ba6d49472b/standard_xlarge.jpg",
+    },
+    {
+      id: "2",
+      isSelect: false,
+      name: "Thor",
+      image:
+        "http://i.annihil.us/u/prod/marvel/i/mg/5/a0/537bc7036ab02/standard_xlarge.jpg",
+    },
+    {
+      id: "3",
+      isSelect: false,
+      name: "Iron Man",
+      image:
+        "http://i.annihil.us/u/prod/marvel/i/mg/6/a0/55b6a25e654e6/standard_xlarge.jpg",
+    },
+    {
+      id: "4",
+      isSelect: true,
+      name: "Hulk",
+      image:
+        "http://i.annihil.us/u/prod/marvel/i/mg/5/a0/538615ca33ab0/standard_xlarge.jpg",
+    },
+  ];
   return (
     <div>
       <h1>THis is hero page</h1>
-      <div>{buttons}</div>
+      <HeroList heroData={heroData} />
     </div>
   );
 }
