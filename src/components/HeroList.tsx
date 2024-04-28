@@ -11,13 +11,25 @@ interface Hero {
   image: string;
 }
 
-export default function HeroList({ heroData }: { heroData: Array<Hero> }) {
+const StyledList = styled.div`
+  display: flex;
+  gap: 10px;
+  width: 1200px;
+`;
+
+export default function HeroList({
+  heroData,
+  setSelectedId,
+}: {
+  heroData: Array<Hero>;
+  setSelectedId: any;
+}) {
   const router = useRouter();
-  const StyledList = styled.div`
-    display: flex;
-    gap: 10px;
-    width: 1200px;
-  `;
+
+  function clickCard(id: string) {
+    router.push(`/heros/${id}`);
+    setSelectedId(id);
+  }
 
   const Cards = heroData.map((item) => (
     <HeroCard
@@ -25,7 +37,7 @@ export default function HeroList({ heroData }: { heroData: Array<Hero> }) {
       isSelect={item.isSelect}
       name={item.name}
       image={item.image}
-      clickCard={() => router.push(`/heros/${item.id}`)}
+      clickCard={() => clickCard(item.id)}
     />
   ));
 

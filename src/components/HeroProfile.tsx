@@ -70,7 +70,7 @@ export default function HeroProfile() {
     }
   }
 
-  function minus(val: number, callbackFunc: any) {
+  function minus(val: number, callbackFunc: Function) {
     if (val > 0) {
       callbackFunc(val - 1);
       setPoint(point + 1);
