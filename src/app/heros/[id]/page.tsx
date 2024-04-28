@@ -1,12 +1,11 @@
 "use client";
-import { useState } from "react";
+import { useStore } from "@/store";
 
 import HeroList from "@/components/HeroList";
 import HeroProfile from "@/components/HeroProfile";
 
 export default function HeroDetail({ params }: { params: { id: string } }) {
-  const [selectedId, setSelectedId] = useState("");
-
+  const { selectedId } = useStore();
   const heroData = [
     {
       id: "1",
@@ -41,7 +40,7 @@ export default function HeroDetail({ params }: { params: { id: string } }) {
   return (
     <div>
       <h1>THis is No.{params.id} hero detail page</h1>
-      <HeroList heroData={heroData} setSelectedId={setSelectedId} />
+      <HeroList heroData={heroData} />
       <HeroProfile />
     </div>
   );
