@@ -1,0 +1,10 @@
+echo "trigger commit-msg"
+
+message="$(cat $1)"
+requiredPattern="^(feat:|fix:|docs:|style:|refactor:|pref:|test:|build:|ci:|chore:|revert:|Merge) .*$"
+
+if ! [[ $message =~ $requiredPattern ]];
+then
+  echo "your commit message is invalid"
+  exit 1
+fi
