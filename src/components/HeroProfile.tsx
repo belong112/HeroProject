@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import styled from "styled-components";
 
@@ -55,17 +55,24 @@ const SaveButton = styled.button`
   cursor: pointer;
 `;
 
-export default function HeroProfile() {
-  const [str, setStr] = useState(2);
-  const [int, setInt] = useState(6);
-  const [agi, setAgi] = useState(4);
-  const [luk, setLuk] = useState(5);
-  const [point, setPoint] = useState(5);
+interface HeroStat {
+  str: number;
+  int: number;
+  agi: number;
+  luk: number;
+}
+
+export default function HeroProfile({ statData }: { statData: HeroStat }) {
+  const [str, setStr] = useState(statData.str);
+  const [int, setInt] = useState(statData.int);
+  const [agi, setAgi] = useState(statData.agi);
+  const [luk, setLuk] = useState(statData.luk);
+  const [point, setPoint] = useState(0);
 
   function add(val: number, callbackFunc: any) {
     if (point > 0) {
-      callbackFunc(val + 1);
-      setPoint(point - 1);
+      callbackFunc((val: number) => val + 1);
+      setPoint((point) => point - 1);
     } else {
       toast.error("剩餘點數不足");
     }
@@ -73,11 +80,15 @@ export default function HeroProfile() {
 
   function minus(val: number, callbackFunc: Function) {
     if (val > 0) {
-      callbackFunc(val - 1);
+      callbackFunc((val: number) => val - 1);
       setPoint(point + 1);
     } else {
       toast.error("能力點數不足");
     }
+  }
+
+  function saveStats() {
+    toast.success("儲存成功!");
   }
 
   const staticData = [
@@ -116,12 +127,19 @@ export default function HeroProfile() {
     </Statistic>
   ));
 
+  useEffect(() => {
+    setStr(statData.str);
+    setInt(statData.int);
+    setAgi(statData.agi);
+    setLuk(statData.luk);
+  }, [statData]);
+
   return (
     <ProfileContainer>
       <ProfileLeft>{StaticControler}</ProfileLeft>
       <ProfileRight>
         <StatisticText>剩餘點數 : {point}</StatisticText>
-        <SaveButton>儲存</SaveButton>
+        <SaveButton onClick={saveStats}>儲存</SaveButton>
       </ProfileRight>
       <Toaster />
     </ProfileContainer>

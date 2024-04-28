@@ -1,13 +1,23 @@
 import { create } from "zustand";
 
-interface HeroState {
+interface SelectState {
   selectedId: string;
   setSelectedId: (id: string) => void;
   clearSelectedId: () => void;
 }
 
-export const useStore = create<HeroState>((set) => ({
+interface HeroListsState {
+  heroLists: Array<Object>;
+  setHeroLists: (lists: Array<Object>) => void;
+}
+
+export const useSelectStore = create<SelectState>((set) => ({
   selectedId: "",
   setSelectedId: (id) => set({ selectedId: id }),
   clearSelectedId: () => set({ selectedId: "" }),
+}));
+
+export const useHeroListsStore = create<HeroListsState>((set) => ({
+  heroLists: [],
+  setHeroLists: (lists) => set({ heroLists: lists }),
 }));

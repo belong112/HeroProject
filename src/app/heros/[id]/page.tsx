@@ -1,47 +1,44 @@
 "use client";
-import { useStore } from "@/store";
+import { useEffect, useState } from "react";
+import { useSelectStore } from "@/store";
+import { getHeroListsInfo, getHeroProfile } from "@/utils/request";
 
 import HeroList from "@/components/HeroList";
 import HeroProfile from "@/components/HeroProfile";
 
+interface Hero {
+  id: string;
+  name: string;
+  image: string;
+}
+
 export default function HeroDetail({ params }: { params: { id: string } }) {
-  const { selectedId } = useStore();
-  const heroData = [
-    {
-      id: "1",
-      isSelect: selectedId === "1",
-      name: "Daredevil",
-      image:
-        "http://i.annihil.us/u/prod/marvel/i/mg/6/90/537ba6d49472b/standard_xlarge.jpg",
-    },
-    {
-      id: "2",
-      isSelect: selectedId === "2",
-      name: "Thor",
-      image:
-        "http://i.annihil.us/u/prod/marvel/i/mg/5/a0/537bc7036ab02/standard_xlarge.jpg",
-    },
-    {
-      id: "3",
-      isSelect: selectedId === "3",
-      name: "Iron Man",
-      image:
-        "http://i.annihil.us/u/prod/marvel/i/mg/6/a0/55b6a25e654e6/standard_xlarge.jpg",
-    },
-    {
-      id: "4",
-      isSelect: selectedId === "4",
-      name: "Hulk",
-      image:
-        "http://i.annihil.us/u/prod/marvel/i/mg/5/a0/538615ca33ab0/standard_xlarge.jpg",
-    },
-  ];
+  const { selectedId } = useSelectStore();
+  const [heroData, setHeroData] = useState([]);
+  const [statData, setStatData] = useState({ str: 0, int: 0, agi: 0, luk: 0 });
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const originalData = await getHeroListsInfo();
+      const heroProfile = await getHeroProfile(params.id);
+      console.log(heroProfile);
+      setHeroData(
+        originalData.map((item: Hero) => ({
+          ...item,
+          isSelect: item.id === selectedId,
+        })),
+      );
+      setStatData(heroProfile);
+    };
+
+    fetchData();
+  }, [params.id, selectedId]);
 
   return (
     <div>
-      <h1>THis is No.{params.id} hero detail page</h1>
+      <h1>This is No.{params.id} hero detail page</h1>
       <HeroList heroData={heroData} />
-      <HeroProfile />
+      <HeroProfile statData={statData} />
     </div>
   );
 }

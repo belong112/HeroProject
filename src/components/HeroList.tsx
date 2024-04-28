@@ -1,6 +1,6 @@
 "use client";
 import { useRouter } from "next/navigation";
-import { useStore } from "@/store";
+import { useSelectStore } from "@/store";
 
 import styled from "styled-components";
 import HeroCard from "@/components/HeorCard";
@@ -20,7 +20,7 @@ const StyledList = styled.div`
 
 export default function HeroList({ heroData }: { heroData: Array<Hero> }) {
   const router = useRouter();
-  const { setSelectedId } = useStore();
+  const { setSelectedId } = useSelectStore();
 
   function clickCard(id: string) {
     router.push(`/heros/${id}`);
