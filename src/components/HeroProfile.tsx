@@ -73,10 +73,10 @@ export default function HeroProfile({ statData }: { statData: HeroStat }) {
   const [point, setPoint] = useState(0);
   const { selectedId } = useSelectStore();
 
-  function add(val: number, callbackFunc: any) {
+  function increase(val: number, settingFunc: any) {
     if (point > 0) {
-      callbackFunc((val: number) => val + 1);
-      setPoint((point) => point - 1);
+      settingFunc((val: number) => val + 1);
+      setPoint(point - 1);
     } else {
       toast.error("剩餘點數不足", {
         duration: 1500,
@@ -84,9 +84,9 @@ export default function HeroProfile({ statData }: { statData: HeroStat }) {
     }
   }
 
-  function minus(val: number, callbackFunc: Function) {
+  function decrease(val: number, settingFunc: Function) {
     if (val > 0) {
-      callbackFunc((val: number) => val - 1);
+      settingFunc((val: number) => val - 1);
       setPoint(point + 1);
     } else {
       toast.error("能力點數不足", {
@@ -96,9 +96,10 @@ export default function HeroProfile({ statData }: { statData: HeroStat }) {
   }
 
   function saveStats() {
+    // 檢查點數是否分配完畢
     if (point > 0) {
       toast.error("仍有點數尚未分配", {
-        duration: 1000,
+        duration: 1500,
       });
       return;
     }
@@ -111,14 +112,14 @@ export default function HeroProfile({ statData }: { statData: HeroStat }) {
     };
 
     patchHeroProfile(selectedId, param)
-      .then((res) => {
+      .then(() => {
         toast.success("儲存成功", {
-          duration: 1000,
+          duration: 1500,
         });
       })
-      .catch((error) =>
+      .catch(() =>
         toast.error("發生錯誤", {
-          duration: 1000,
+          duration: 1500,
         }),
       );
   }
@@ -127,35 +128,35 @@ export default function HeroProfile({ statData }: { statData: HeroStat }) {
     {
       property: "STR",
       value: str,
-      add: () => add(str, setStr),
-      minus: () => minus(str, setStr),
+      increase: () => increase(str, setStr),
+      decrease: () => decrease(str, setStr),
     },
     {
       property: "INT",
       value: int,
-      add: () => add(int, setInt),
-      minus: () => minus(int, setInt),
+      increase: () => increase(int, setInt),
+      decrease: () => decrease(int, setInt),
     },
     {
       property: "AGI",
       value: agi,
-      add: () => add(agi, setAgi),
-      minus: () => minus(agi, setAgi),
+      increase: () => increase(agi, setAgi),
+      decrease: () => decrease(agi, setAgi),
     },
     {
       property: "LUK",
       value: luk,
-      add: () => add(luk, setLuk),
-      minus: () => minus(luk, setLuk),
+      increase: () => increase(luk, setLuk),
+      decrease: () => decrease(luk, setLuk),
     },
   ];
 
   const StaticControler = staticData.map((item) => (
     <Statistic key={item.property}>
       <StatisticText>{item.property}</StatisticText>
-      <ControlButton onClick={item.add}>+</ControlButton>
+      <ControlButton onClick={item.increase}>+</ControlButton>
       <StatisticText>{item.value}</StatisticText>
-      <ControlButton onClick={item.minus}>-</ControlButton>
+      <ControlButton onClick={item.decrease}>-</ControlButton>
     </Statistic>
   ));
 
