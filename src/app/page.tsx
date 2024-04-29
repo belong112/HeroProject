@@ -1,15 +1,18 @@
 "use client";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export default function Home() {
   const router = useRouter();
 
+  useEffect(() => {
+    router.push("/heros");
+  });
+
   return (
     <main>
       <div>
-        <button onClick={() => router.push("/heros")}>
-          點我跳轉至hero頁面
-        </button>
+        <h1>將自動跳轉至英雄頁面</h1>
       </div>
     </main>
   );
