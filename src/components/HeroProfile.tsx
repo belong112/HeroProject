@@ -8,11 +8,11 @@ import { patchHeroProfile } from "@/utils/request";
 
 const ProfileContainer = styled.div`
   display: flex;
-  width: 700px;
+  max-width: 1000px;
+  margin: 20px 10px;
   padding: 2rem;
   border: 1px solid #707070;
   border-radius: 10px;
-  margin-top: 20px;
 `;
 
 const ProfileLeft = styled.div`
@@ -78,7 +78,9 @@ export default function HeroProfile({ statData }: { statData: HeroStat }) {
       callbackFunc((val: number) => val + 1);
       setPoint((point) => point - 1);
     } else {
-      toast.error("剩餘點數不足");
+      toast.error("剩餘點數不足", {
+        duration: 1500,
+      });
     }
   }
 
@@ -87,13 +89,17 @@ export default function HeroProfile({ statData }: { statData: HeroStat }) {
       callbackFunc((val: number) => val - 1);
       setPoint(point + 1);
     } else {
-      toast.error("能力點數不足");
+      toast.error("能力點數不足", {
+        duration: 1500,
+      });
     }
   }
 
   function saveStats() {
     if (point > 0) {
-      toast.error("仍有點數尚未分配");
+      toast.error("仍有點數尚未分配", {
+        duration: 1000,
+      });
       return;
     }
 
@@ -106,9 +112,15 @@ export default function HeroProfile({ statData }: { statData: HeroStat }) {
 
     patchHeroProfile(selectedId, param)
       .then((res) => {
-        toast.success("儲存成功");
+        toast.success("儲存成功", {
+          duration: 1000,
+        });
       })
-      .catch((error) => toast.error("發生錯誤"));
+      .catch((error) =>
+        toast.error("發生錯誤", {
+          duration: 1000,
+        }),
+      );
   }
 
   const staticData = [

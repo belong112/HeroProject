@@ -1,9 +1,18 @@
 "use client";
 import { useEffect, useState } from "react";
-import { useSelectStore } from "@/store";
 import { getHeroListsInfo } from "@/utils/request";
 
+import styled from "styled-components";
 import HeroList from "@/components/HeroList";
+
+const PageContainer = styled.div`
+  margin: 30px 50px;
+`;
+
+const StyledTitle = styled.h1`
+  font-size: 32px;
+  color: #ff5809;
+`;
 
 interface Hero {
   id: string;
@@ -12,27 +21,21 @@ interface Hero {
 }
 
 export default function Hero() {
-  const { selectedId } = useSelectStore();
   const [heroData, setHeroData] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       const originalData = await getHeroListsInfo();
-      setHeroData(
-        originalData.map((item: Hero) => ({
-          ...item,
-          isSelected: item.id === selectedId,
-        })),
-      );
+      setHeroData(originalData);
     };
 
     fetchData();
-  }, [selectedId]);
+  }, []);
 
   return (
-    <div>
-      <h1>THis is hero page</h1>
+    <PageContainer>
+      <StyledTitle>Choose Your Hero !</StyledTitle>
       <HeroList heroData={heroData} />
-    </div>
+    </PageContainer>
   );
 }

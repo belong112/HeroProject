@@ -2,19 +2,21 @@ import Image from "next/image";
 import styled from "styled-components";
 
 const Card = styled.div<{ $isSelect: boolean }>`
-  flex: 0 0 25%;
+  width: 250px;
   padding: 15px;
+  margin: 10px;
+  box-sizing: border-box;
   border: 1px solid #ccc;
   border-radius: 3px;
-  box-shadow: ${(props) =>
-    props.$isSelect ? " 0px 0px 15px #fc4517" : "0px 0px 15px #707070"};
-  background: #fff;
+  box-shadow: "0px 0px 15px #707070";
+  background: ${(props) => (props.$isSelect ? "#fffcec" : "#fff")};
   color: #707070;
   text-align: center;
   cursor: pointer;
 
   &:hover {
-    color: red;
+    color: #fc4517;
+    box-shadow: 0px 0px 15px #fc4517;
   }
 `;
 
