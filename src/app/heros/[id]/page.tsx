@@ -6,7 +6,6 @@ import { useHeroListsStore } from "@/store";
 import styled from "styled-components";
 import HeroList from "@/components/HeroList";
 import HeroProfile from "@/components/HeroProfile";
-import Skeleton from "@mui/material/Skeleton";
 
 const PageContainer = styled.div`
   display: flex;
@@ -20,7 +19,6 @@ const StyledTitle = styled.h1`
 `;
 
 export default function HeroDetail({ params }: { params: { id: string } }) {
-  const [isLoad, setIsLoad] = useState(false);
   const [statData, setStatData] = useState({ str: 0, int: 0, agi: 0, luk: 0 });
   const { heroLists } = useHeroListsStore();
 
@@ -28,7 +26,6 @@ export default function HeroDetail({ params }: { params: { id: string } }) {
     const fetchData = async () => {
       const heroProfile = await getHeroProfile(params.id);
       setStatData(heroProfile);
-      setIsLoad(true);
     };
 
     fetchData();
@@ -38,11 +35,7 @@ export default function HeroDetail({ params }: { params: { id: string } }) {
     <PageContainer>
       <StyledTitle>You Chose No.{params.id}</StyledTitle>
       <HeroList heroData={heroLists} />
-      {isLoad ? (
-        <HeroProfile statData={statData} />
-      ) : (
-        <Skeleton variant="rounded" width={1000} height={300} />
-      )}
+      <HeroProfile statData={statData} />
     </PageContainer>
   );
 }
