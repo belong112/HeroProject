@@ -5,18 +5,18 @@ const Card = styled.div<{ $isSelect: boolean }>`
   width: 250px;
   padding: 15px;
   margin: 10px;
-  box-sizing: border-box;
   border: 1px solid #ccc;
-  border-radius: 3px;
-  box-shadow: "0px 0px 15px #707070";
+  border-radius: 5px;
+  box-sizing: border-box;
+  box-shadow: 0px 0px 15px #707070;
   background: ${(props) => (props.$isSelect ? "#fffcec" : "#fff")};
   color: #707070;
   text-align: center;
   cursor: pointer;
 
   &:hover {
-    color: #fc4517;
     box-shadow: 0px 0px 15px #fc4517;
+    color: #fc4517;
   }
 `;
 

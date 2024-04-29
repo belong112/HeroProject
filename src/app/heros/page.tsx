@@ -7,7 +7,9 @@ import styled from "styled-components";
 import HeroList from "@/components/HeroList";
 
 const PageContainer = styled.div`
-  margin: 30px 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const StyledTitle = styled.h1`

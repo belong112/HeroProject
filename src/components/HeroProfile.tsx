@@ -9,15 +9,17 @@ import { patchHeroProfile } from "@/utils/request";
 const ProfileContainer = styled.div`
   display: flex;
   max-width: 1000px;
+  width: calc(100% - 60px); /* 100% 寬度減去左右 margin + padding 的總寬度 */
   margin: 20px 10px;
-  padding: 2rem;
+  padding: 20px;
   border: 1px solid #707070;
   border-radius: 10px;
+  background-color: #ffffff;
 `;
 
 const ProfileLeft = styled.div`
-  width: 60%;
   justify-content: center;
+  width: 60%;
 `;
 
 const ProfileRight = styled.div`
@@ -27,9 +29,9 @@ const ProfileRight = styled.div`
 
 const Statistic = styled.div`
   display: flex;
-  gap: 20px;
   justify-content: center;
   align-items: center;
+  gap: 20px;
   font-size: 24px;
 `;
 
@@ -40,21 +42,22 @@ const StatisticText = styled.p`
 const ControlButton = styled.button`
   height: 30px;
   width: 30px;
-  font-size: 20px;
   background-color: #f5f5f5;
   border: 0px;
   border-radius: 5px;
+  font-size: 20px;
   cursor: pointer;
 `;
 
 const SaveButton = styled.button`
   height: 30px;
   width: 120px;
-  text-align: center;
-  font-size: 20px;
+  margin-bottom: 1em;
   background-color: #f5f5f5;
   border: 0px;
   border-radius: 5px;
+  text-align: center;
+  font-size: 20px;
   cursor: pointer;
 `;
 

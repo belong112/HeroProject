@@ -8,7 +8,9 @@ import HeroList from "@/components/HeroList";
 import HeroProfile from "@/components/HeroProfile";
 
 const PageContainer = styled.div`
-  margin: 30px 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const StyledTitle = styled.h1`
