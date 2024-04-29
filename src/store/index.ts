@@ -6,9 +6,15 @@ interface SelectState {
   clearSelectedId: () => void;
 }
 
+interface Hero {
+  id: string;
+  name: string;
+  image: string;
+}
+
 interface HeroListsState {
-  heroLists: Array<Object>;
-  setHeroLists: (lists: Array<Object>) => void;
+  heroLists: Array<Hero>;
+  setHeroLists: (lists: Array<Hero>) => void;
 }
 
 export const useSelectStore = create<SelectState>((set) => ({

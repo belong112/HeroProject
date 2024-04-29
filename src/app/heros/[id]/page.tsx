@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
-import { getHeroListsInfo, getHeroProfile } from "@/utils/request";
+import { getHeroProfile } from "@/utils/request";
+import { useHeroListsStore } from "@/store";
 
 import styled from "styled-components";
 import HeroList from "@/components/HeroList";
@@ -16,17 +17,8 @@ const StyledTitle = styled.h1`
 `;
 
 export default function HeroDetail({ params }: { params: { id: string } }) {
-  const [heroData, setHeroData] = useState([]);
   const [statData, setStatData] = useState({ str: 0, int: 0, agi: 0, luk: 0 });
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const originalData = await getHeroListsInfo();
-      setHeroData(originalData);
-    };
-
-    fetchData();
-  }, []);
+  const { heroLists } = useHeroListsStore();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -40,7 +32,7 @@ export default function HeroDetail({ params }: { params: { id: string } }) {
   return (
     <PageContainer>
       <StyledTitle>You Chose No.{params.id}</StyledTitle>
-      <HeroList heroData={heroData} />
+      <HeroList heroData={heroLists} />
       <HeroProfile statData={statData} />
     </PageContainer>
   );

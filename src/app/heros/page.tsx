@@ -1,6 +1,7 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { getHeroListsInfo } from "@/utils/request";
+import { useHeroListsStore } from "@/store";
 
 import styled from "styled-components";
 import HeroList from "@/components/HeroList";
@@ -14,28 +15,22 @@ const StyledTitle = styled.h1`
   color: #ff5809;
 `;
 
-interface Hero {
-  id: string;
-  name: string;
-  image: string;
-}
-
 export default function Hero() {
-  const [heroData, setHeroData] = useState([]);
+  const { heroLists, setHeroLists } = useHeroListsStore();
 
   useEffect(() => {
     const fetchData = async () => {
       const originalData = await getHeroListsInfo();
-      setHeroData(originalData);
+      setHeroLists(originalData);
     };
 
     fetchData();
-  }, []);
+  });
 
   return (
     <PageContainer>
       <StyledTitle>Choose Your Hero !</StyledTitle>
-      <HeroList heroData={heroData} />
+      <HeroList heroData={heroLists} />
     </PageContainer>
   );
 }

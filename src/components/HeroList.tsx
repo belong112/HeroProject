@@ -7,7 +7,6 @@ import HeroCard from "@/components/HeorCard";
 
 interface Hero {
   id: string;
-  isSelect: boolean;
   name: string;
   image: string;
 }
