@@ -158,7 +158,7 @@ export default function HeroProfile({ statData }: { statData: HeroStat }) {
     <Statistic key={item.property}>
       <StatisticText>{item.property}</StatisticText>
       <ControlButton onClick={item.increase}>+</ControlButton>
-      <StatisticText>{item.value}</StatisticText>
+      <StatisticText>{item.value === 0 ? "..." : item.value}</StatisticText>
       <ControlButton onClick={item.decrease}>-</ControlButton>
     </Statistic>
   ));
