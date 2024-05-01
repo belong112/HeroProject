@@ -1,5 +1,7 @@
 import axios from "axios";
 
+import { HeroStat } from "@/interfaces";
+
 export async function get(url: string) {
   try {
     const response = await axios.get(url);
@@ -30,14 +32,7 @@ export async function getHeroProfile(heroId: string) {
   return get(`https://hahow-recruit.herokuapp.com/heroes/${heroId}/profile`);
 }
 
-interface HeroProfile {
-  str: number;
-  int: number;
-  agi: number;
-  luk: number;
-}
-
-export async function patchHeroProfile(heroId: string, param: HeroProfile) {
+export async function patchHeroProfile(heroId: string, param: HeroStat) {
   return patch(
     `https://hahow-recruit.herokuapp.com/heroes/${heroId}/profile`,
     param,
