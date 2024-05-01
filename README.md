@@ -41,16 +41,16 @@ npm run dev
 
 ### Route
 
-Next.js 採用 file-base routing，會把資料夾看成 route 的一部分。ex. `app/heros/pages.tsx` 代表 `/heros` route
+Next.js 採用 file-base routing，會把資料夾看成 route 的一部分。ex. `app/heroes/pages.tsx` 代表 `/heroes` route
 
 ```
 .
 ├── src
 │   └── app
-│       ├── heros
+│       ├── heroes
 │       │   ├── [id]
-│       │   │   └── pages.tsx // /heros/:id
-│       │   └── pages.tsx // /heros
+│       │   │   └── pages.tsx // /heroes/:id
+│       │   └── pages.tsx // /heroes
 │       └── pages.tsx // /
 │
 ...
@@ -68,7 +68,7 @@ Next.js 採用 file-base routing，會把資料夾看成 route 的一部分。ex
 ...
 ```
 
-`HeroCard`: 單個hero的卡片，點擊後會跳轉至 heros/:id 頁面
+`HeroCard`: 單個hero的卡片，點擊後會跳轉至 heroes/:id 頁面
 `HeroList`: 包裝 HeroCard 的容器，把打 api 獲得的資料傳進 HeroCard
 `HeroProfile`: 用於調整英雄能力的 compoenent
 
@@ -106,6 +106,6 @@ Next.js 採用 file-base routing，會把資料夾看成 route 的一部分。ex
 
 ## 專案遇到的困難
 
-本次遇到的一個困難點在 useEffect 的使用。起初我在載入 /heros/[id] 頁面時會一口氣呼叫 `https://hahow-recruit.herokuapp.com/heroes`，`https://hahow-recruit.herokuapp.com/heroes/${heroId}/profile` 兩支 api，但在點選不同英雄切換 url 的時候因 useEffect 的 dependencies 沒設定好，相互影響，造成多餘的 api 呼叫。
+本次遇到的一個困難點在 useEffect 的使用。起初我在載入 /heroes/[id] 頁面時會一口氣呼叫 `https://hahow-recruit.herokuapp.com/heroes`，`https://hahow-recruit.herokuapp.com/heroes/${heroId}/profile` 兩支 api，但在點選不同英雄切換 url 的時候因 useEffect 的 dependencies 沒設定好，相互影響，造成多餘的 api 呼叫。
 
-後來，修改成只在 `/heros` 頁面 呼叫 `https://hahow-recruit.herokuapp.com/heroes` 獲得全英雄的資料，並存入 store，進入 `/heros/:id` 頁只需呼叫一次 api，不會造成重複選染的問題。同時也符合 **"Hero List" 依然在相同位置，並且不因切換連結重新 render** 的需求。
+後來，修改成只在 `/heroes` 頁面 呼叫 `https://hahow-recruit.herokuapp.com/heroes` 獲得全英雄的資料，並存入 store，進入 `/heroes/:id` 頁只需呼叫一次 api，不會造成重複選染的問題。同時也符合 **"Hero List" 依然在相同位置，並且不因切換連結重新 render** 的需求。
