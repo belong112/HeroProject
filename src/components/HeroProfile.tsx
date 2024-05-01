@@ -4,12 +4,13 @@ import toast, { Toaster } from "react-hot-toast";
 import styled from "styled-components";
 
 import { useSelectStore } from "@/store";
+import { HeroStat } from "@/interfaces";
 import { patchHeroProfile } from "@/utils/request";
 
 const ProfileContainer = styled.div`
   display: flex;
   max-width: 1000px;
-  width: calc(100% - 60px); /* 100% 寬度減去左右 margin + padding 的總寬度 */
+  width: calc(100% - 60px); // 100% 寬度減去左右 margin + padding 的總寬度
   margin: 20px 10px;
   padding: 20px;
   border: 1px solid #707070;
@@ -39,20 +40,7 @@ const StatisticText = styled.p`
   font-size: 20px;
 `;
 
-const ControlButton = styled.button`
-  height: 30px;
-  width: 30px;
-  background-color: #f5f5f5;
-  border: 0px;
-  border-radius: 5px;
-  font-size: 20px;
-  cursor: pointer;
-`;
-
-const SaveButton = styled.button`
-  height: 30px;
-  width: 120px;
-  margin-bottom: 1em;
+const Button = styled.button`
   background-color: #f5f5f5;
   border: 0px;
   border-radius: 5px;
@@ -61,22 +49,28 @@ const SaveButton = styled.button`
   cursor: pointer;
 `;
 
-interface HeroStat {
-  str: number;
-  int: number;
-  agi: number;
-  luk: number;
-}
+const ControlButton = styled(Button)`
+  height: 30px;
+  width: 30px;
+`;
+
+const SaveButton = styled(Button)`
+  height: 30px;
+  width: 120px;
+  margin: 1em 0;
+`;
 
 export default function HeroProfile({ statData }: { statData: HeroStat }) {
   const [str, setStr] = useState(statData.str);
   const [int, setInt] = useState(statData.int);
   const [agi, setAgi] = useState(statData.agi);
   const [luk, setLuk] = useState(statData.luk);
-  const [point, setPoint] = useState(0);
+  const [point, setPoint] = useState(0); // 可分配的點數
   const { selectedId } = useSelectStore();
 
+  // 增加技能點數
   function increase(val: number, settingFunc: any) {
+    // 需有可分配點數
     if (point > 0) {
       settingFunc((val: number) => val + 1);
       setPoint(point - 1);
@@ -87,7 +81,9 @@ export default function HeroProfile({ statData }: { statData: HeroStat }) {
     }
   }
 
+  // 減少技能點數
   function decrease(val: number, settingFunc: Function) {
+    // 技能點數不可為0
     if (val > 0) {
       settingFunc((val: number) => val - 1);
       setPoint(point + 1);
@@ -127,7 +123,7 @@ export default function HeroProfile({ statData }: { statData: HeroStat }) {
       );
   }
 
-  const staticData = [
+  const statisticData = [
     {
       property: "STR",
       value: str,
@@ -154,7 +150,7 @@ export default function HeroProfile({ statData }: { statData: HeroStat }) {
     },
   ];
 
-  const StaticControler = staticData.map((item) => (
+  const StatisticControler = statisticData.map((item) => (
     <Statistic key={item.property}>
       <StatisticText>{item.property}</StatisticText>
       <ControlButton onClick={item.increase}>+</ControlButton>
@@ -172,7 +168,7 @@ export default function HeroProfile({ statData }: { statData: HeroStat }) {
 
   return (
     <ProfileContainer>
-      <ProfileLeft>{StaticControler}</ProfileLeft>
+      <ProfileLeft>{StatisticControler}</ProfileLeft>
       <ProfileRight>
         <StatisticText>剩餘點數 : {point}</StatisticText>
         <SaveButton onClick={saveStats}>儲存</SaveButton>

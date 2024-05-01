@@ -30,7 +30,7 @@ export default function Hero() {
     };
 
     fetchData();
-  });
+  }, [setHeroLists]);
 
   return (
     <PageContainer>

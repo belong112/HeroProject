@@ -5,6 +5,7 @@ import { useEffect } from "react";
 export default function Home() {
   const router = useRouter();
 
+  // 載入頁面即自動跳轉至 /heros 頁
   useEffect(() => {
     router.push("/heros");
   });

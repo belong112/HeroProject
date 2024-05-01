@@ -21,7 +21,7 @@ const Card = styled.div<{ $isSelect: boolean }>`
 `;
 
 const HeroName = styled.p`
-  font-size: 2rem;
+  font-size: 24px;
 `;
 
 export default function HeroCard({

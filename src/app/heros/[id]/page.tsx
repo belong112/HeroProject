@@ -19,8 +19,9 @@ const StyledTitle = styled.h1`
 `;
 
 export default function HeroDetail({ params }: { params: { id: string } }) {
-  const [statData, setStatData] = useState({ str: 0, int: 0, agi: 0, luk: 0 });
+  const [statData, setStatData] = useState({ str: 0, int: 0, agi: 0, luk: 0 }); // Hero的能力數值
   const { heroLists } = useHeroListsStore();
+  const chosenHeroName = heroLists[parseInt(params.id) - 1]?.name || "???";
 
   useEffect(() => {
     const fetchData = async () => {
@@ -33,7 +34,7 @@ export default function HeroDetail({ params }: { params: { id: string } }) {
 
   return (
     <PageContainer>
-      <StyledTitle>You Chose No.{params.id}</StyledTitle>
+      <StyledTitle>You Chose {chosenHeroName}</StyledTitle>
       <HeroList heroData={heroLists} />
       <HeroProfile statData={statData} />
     </PageContainer>
