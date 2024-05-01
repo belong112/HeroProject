@@ -24,7 +24,7 @@ const StyledCircularProgress = styled(CircularProgress)`
   color: #ff5809;
 `;
 
-export default function HeroDetail({ params }: { params: { id: string } }) {
+export default function HeroesDetail({ params }: { params: { id: string } }) {
   const { heroLists } = useHeroListsStore();
   const chosenHeroName = heroLists[parseInt(params.id) - 1]?.name || "???"; // 選取的Hero名
   const [statData, setStatData] = useState({ str: 0, int: 0, agi: 0, luk: 0 }); // Hero的能力數值

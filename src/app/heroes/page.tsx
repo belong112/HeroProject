@@ -18,7 +18,7 @@ const StyledTitle = styled.h1`
   color: #ff5809;
 `;
 
-export default function Hero() {
+export default function Heroes() {
   const { heroLists, setHeroLists } = useHeroListsStore();
   const [isLoad, setIsLoad] = useState(false); // 是否取得 hero lists
 
