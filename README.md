@@ -1,36 +1,111 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Hero Project
 
-## Getting Started
+一個可以觀看不同英雄的數值且可以自由調整的網站。
 
-First, run the development server:
+## 如何啟動
+
+clone 至你的資料夾
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/belong112/HeroProject.git
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+下載套件並啟動
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+# 進入專案資料夾
+cd HeroProject
+# 下載所需套件
+npm install
+# 啟動
+npm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+接著打開 [http://localhost:3000](http://localhost:3000) 就可看到畫面
 
-## Learn More
+## 專案架構
 
-To learn more about Next.js, take a look at the following resources:
+### 結構樹
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+.
+├── src
+│   ├── app // 主要頁面
+│   ├── components // 子元件
+│   ├── interfaces // 定義共用 interface
+│   ├── store // 全域狀態管理
+│   └── utils // 其他共用 function ex. request
+│
+...
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+### Route
 
-## Deploy on Vercel
+Next.js 採用 file-base routing，會把資料夾看成 route 的一部分。ex. `app/heros/pages.tsx` 代表 `/heros` route
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```
+.
+├── src
+│   └── app
+│       ├── heros
+│       │   ├── [id]
+│       │   │   └── pages.tsx // /heros/:id
+│       │   └── pages.tsx // /heros
+│       └── pages.tsx // /
+│
+...
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+### Components
+
+```
+.
+├── components
+│   ├── HeroCard.tsx
+│   ├── HeorList.tsx
+│   └── HeroProfile.tsx
+│
+...
+```
+
+`HeroCard`: 單個hero的卡片，點擊後會跳轉至 heros/:id 頁面
+`HeroList`: 包裝 HeroCard 的容器，把打 api 獲得的資料傳進 HeroCard
+`HeroProfile`: 用於調整英雄能力的 compoenent
+
+## 使用的第三方套件
+
+- axios
+  - 提供簡潔的 api 來處理 http 請求的工具
+- react-hot-toast
+  - 在畫面中彈出通知的小工具
+- styled-components
+  - 撰寫 css-in-js 的好用 library
+  - 專案中主要拿來設計自訂元件
+- material-ui
+  - 好用的 react component library
+  - 專案中使用部分元件：Skeleton / Circular，作為數據完全載好之前的預覽。讓使用體驗較佳。
+- zustand
+  - 一個輕量的狀態管理工具
+  - 專案中用於儲存英雄資料，使得轉換頁面時不必重新打api獲得資料
+
+### Code Quality
+
+引入下方套件來確保程式品質
+
+- eslint
+  - 程式碼檢查工具，檢查代碼中的錯誤和 coding style 一致
+- prettier
+  - 自動 format 程式碼的工具，確保 coding style 一致
+- husky
+  - git hooks 工具，在觸發 git 事件前後質性預設的指令，在專案中會在 commit 前檢查 lint 和用 prettier format，同時檢查 commit message 格式
+
+## 註解原則
+
+在次專案中基本上遇到 function 都會做註解說明其功用，遇到 state 也會寫註解說明。
+再來會針對 function 的判斷式寫註解說明為何有這個判斷。
+
+## 專案遇到的困難
+
+本次遇到的一個困難點在 useEffect 的使用。起初我在載入 /heros/[id] 頁面時會一口氣呼叫 `https://hahow-recruit.herokuapp.com/heroes`，`https://hahow-recruit.herokuapp.com/heroes/${heroId}/profile` 兩支 api，但在點選不同英雄切換 url 的時候因 useEffect 的 dependencies 沒設定好，相互影響，造成多餘的 api 呼叫。
+
+後來，修改成只在 `/heros` 頁面 呼叫 `https://hahow-recruit.herokuapp.com/heroes` 獲得全英雄的資料，並存入 store，進入 `/heros/:id` 頁只需呼叫一次 api，不會造成重複選染的問題。同時也符合 **"Hero List" 依然在相同位置，並且不因切換連結重新 render** 的需求。
