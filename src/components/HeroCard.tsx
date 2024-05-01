@@ -9,7 +9,7 @@ const Card = styled.div<{ $isSelect: boolean }>`
   border-radius: 5px;
   box-sizing: border-box;
   box-shadow: 0px 0px 15px #707070;
-  background: ${(props) => (props.$isSelect ? "#fffcec" : "#fff")};
+  background-color: ${(props) => (props.$isSelect ? "#fffcec" : "#fff")};
   color: #707070;
   text-align: center;
   cursor: pointer;
@@ -36,7 +36,7 @@ export default function HeroCard({
   clickCard: () => void;
 }) {
   return (
-    <Card $isSelect={isSelect} onClick={clickCard}>
+    <Card $isSelect={isSelect} onClick={clickCard} data-testid="hero-card">
       <Image src={image} width={200} height={200} alt="Picture of hero" />
       <HeroName>{name}</HeroName>
     </Card>

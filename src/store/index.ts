@@ -1,13 +1,13 @@
 import { create } from "zustand";
 import { Hero } from "@/interfaces";
 
-interface SelectState {
+export type SelectState = {
   selectedId: string;
   setSelectedId: (id: string) => void;
   clearSelectedId: () => void;
-}
+};
 
-interface HeroListsState {
+export interface HeroListsState {
   heroLists: Array<Hero>;
   setHeroLists: (lists: Array<Hero>) => void;
 }

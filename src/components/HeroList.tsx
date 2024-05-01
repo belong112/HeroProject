@@ -4,7 +4,7 @@ import { useSelectStore } from "@/store";
 import { Hero } from "@/interfaces";
 
 import styled from "styled-components";
-import HeroCard from "@/components/HeorCard";
+import HeroCard from "@/components/HeroCard";
 
 const StyledList = styled.div`
   display: flex;
