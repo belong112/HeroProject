@@ -65,10 +65,10 @@ const SaveButton = styled(Button)`
 `;
 
 export default function HeroProfile({ statData }: { statData: HeroStat }) {
-  const [str, setStr] = useState(statData.str);
-  const [int, setInt] = useState(statData.int);
-  const [agi, setAgi] = useState(statData.agi);
-  const [luk, setLuk] = useState(statData.luk);
+  const [str, setStr] = useState(statData.str); // str 數值
+  const [int, setInt] = useState(statData.int); // int 數值
+  const [agi, setAgi] = useState(statData.agi); // agi 數值
+  const [luk, setLuk] = useState(statData.luk); // luk 數值
   const [point, setPoint] = useState(0); // 可分配的點數
   const { selectedId } = useSelectStore();
 
@@ -98,6 +98,7 @@ export default function HeroProfile({ statData }: { statData: HeroStat }) {
     }
   }
 
+  // 儲存技能點數
   function saveStats() {
     // 檢查點數是否分配完畢
     if (point > 0) {

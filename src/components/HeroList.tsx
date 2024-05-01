@@ -15,6 +15,7 @@ export default function HeroList({ heroData }: { heroData: Array<Hero> }) {
   const router = useRouter();
   const { selectedId, setSelectedId } = useSelectStore();
 
+  // 點選卡片
   function clickCard(id: string) {
     setSelectedId(id);
     router.push(`/heroes/${id}`);
