@@ -47,6 +47,10 @@ const Button = styled.button`
   text-align: center;
   font-size: 20px;
   cursor: pointer;
+
+  &:hover {
+    background-color: #e5e5e5;
+  }
 `;
 
 const ControlButton = styled(Button)`
