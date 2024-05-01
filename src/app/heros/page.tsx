@@ -20,7 +20,7 @@ const StyledTitle = styled.h1`
 
 export default function Hero() {
   const { heroLists, setHeroLists } = useHeroListsStore();
-  const [isLoad, setIsLoad] = useState(false);
+  const [isLoad, setIsLoad] = useState(false); // 是否取得 hero lists
 
   useEffect(() => {
     const fetchData = async () => {
