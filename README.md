@@ -126,3 +126,7 @@ Next.js 採用 file-base routing，會把資料夾看成 route 的一部分。ex
 本次遇到的一個困難點在 useEffect 的使用。起初我在載入 /heroes/[id] 頁面時會一口氣呼叫 `https://hahow-recruit.herokuapp.com/heroes`（取得全英雄資料），`https://hahow-recruit.herokuapp.com/heroes/${heroId}/profile` （取得單一英雄能力）兩支 api，但在點選不同英雄切換 url 的時候因 useEffect 的 dependencies 沒設定好，相互影響，造成多餘的 api 呼叫。
 
 後來，修改成只在 `/heroes` 頁面 呼叫 `https://hahow-recruit.herokuapp.com/heroes` 獲得全英雄的資料，並存入 store，進入 `/heroes/:id` 頁只需呼叫一次 api，不會造成重複渲染的問題。同時也符合 **"Hero List" 依然在相同位置，並且不因切換連結重新 render** 的需求。
+
+## View Live Demo
+
+[Demo](https://hero-project.vercel.app)
