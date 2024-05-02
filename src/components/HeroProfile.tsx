@@ -178,7 +178,9 @@ export default function HeroProfile({ statData }: { statData: HeroStat }) {
         <StatisticText data-testid="remain-point">
           剩餘點數 : {point}
         </StatisticText>
-        <SaveButton onClick={saveStats}>儲存</SaveButton>
+        <SaveButton data-testid="save-button" onClick={saveStats}>
+          儲存
+        </SaveButton>
       </ProfileRight>
       <Toaster />
     </ProfileContainer>
