@@ -99,7 +99,23 @@ Next.js 採用 file-base routing，會把資料夾看成 route 的一部分。ex
 - prettier
   - 自動 format 程式碼的工具，確保 coding style 一致
 - husky
+
   - git hooks 工具，在觸發 git 事件前後質性預設的指令，在專案中會在 commit 前檢查 lint 和用 prettier format，同時檢查 commit message 格式
+
+  ### Testing
+
+  引入下方套件做測試
+
+  - jest-dom
+    - 作為測試的執行環境，模擬瀏覽器的行為，api，讓開發者能在node.js的環境下模擬瀏覽器的操作。
+  - jest
+    - 用於測試 JavaScript 應用程式的開源測試框架，可以讓開發者執行測試，撰寫斷言
+  - @testing-library/jest-dom
+    - testing-library 的核心，可以透過 query 到到 DOM 元素
+  - @testing-library/user-event
+    - 用於模擬使用者的行為測試與 UI 的互動，如:click
+  - @testing-library/react
+    - 用於測試 react component 的工具，可以把 react 元件 render 到 DOM 上再執行其他操作
 
 ## 註解原則
 

@@ -35,11 +35,11 @@ describe("HeroProfile component", () => {
     render(<HeroProfile statData={statData} />);
 
     const buttons = screen.getAllByRole("button");
-    await userEvent.click(buttons[1]); // 點 - 按鈕
+    await userEvent.click(buttons[1]); // 點 - 按鈕，剩餘點數 + 1
     expect(screen.getByTestId("remain-point")).toHaveTextContent(
       "剩餘點數 : 1",
     );
-    await userEvent.click(buttons[0]); // 點 + 按鈕
+    await userEvent.click(buttons[0]); // 點 + 按鈕，剩餘點數 - 1
     expect(screen.getByTestId("remain-point")).toHaveTextContent(
       "剩餘點數 : 0",
     );
@@ -62,7 +62,7 @@ describe("HeroProfile component", () => {
 
     const buttons = screen.getAllByRole("button");
     await userEvent.click(buttons[0]); // 點 + 按鈕
-    // 跳出提示
+    // 初始剩餘點數為 0，無法分配點數
     expect(await screen.findByText("剩餘點數不足")).toBeInTheDocument();
   });
 
